@@ -1,5 +1,7 @@
 package modele.intf;
 
+import modele.ModeleException;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ public interface ISpecialite {
     String getNom();
     void setNom(String nom);
     String getCode();
-    void setCode(String code);
+    void setCode(String code) throws ModeleException;
     List<IFormation> getListFormations();
     void setListFormations(List<IFormation> listFormations);
 

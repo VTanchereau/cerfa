@@ -28,35 +28,44 @@ public class FinancementStagiaire implements IFinancementStagiaire {
         this.dateDebut = dateDebut;
     }
 
+    @Override
     public IStagiaire getStagiaire() {
         return stagiaire;
     }
 
+    @Override
     public void setStagiaire(IStagiaire stagiaire) {
         this.stagiaire = stagiaire;
     }
 
+    @Override
     public IFinancement getFinancement() {
         return financement;
     }
 
+    @Override
     public void setFinancement(IFinancement financement) {
         this.financement = financement;
     }
 
+    @Override
     public LocalDate getDateDebut() {
         return dateDebut;
     }
 
+    @Override
     public void setDateDebut(LocalDate dateDebut) {
         this.dateDebut = dateDebut;
     }
 
+    @Override
     public LocalDate getDateFin() {
         return dateFin;
     }
 
+    @Override
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
+
 }

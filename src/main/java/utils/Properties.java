@@ -11,7 +11,7 @@ public class Properties {
     private java.util.Properties dbProperties;
     private static volatile Properties instance = null;
 
-    public Properties() throws PropertiesException {
+    private Properties() throws PropertiesException {
         this.dbProperties = new java.util.Properties();
 
         try (FileInputStream in = new FileInputStream("src/main/resources/db.properties")) {

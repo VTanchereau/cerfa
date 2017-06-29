@@ -1,6 +1,7 @@
 package dao.impl.mysql;
 
 import dao.intf.SpecialiteDAO;
+import modele.ModeleException;
 import modele.impl.Specialite;
 import modele.intf.IFormation;
 import modele.proxy.ProxyFormation;
@@ -46,7 +47,7 @@ public class SpecialiteDAOImpl extends DAOImpl<Specialite> implements Specialite
                 listTemp.add(formation);
                 specialite.setListFormations(listTemp);
             }
-        }catch (SQLException e){
+        }catch (SQLException | ModeleException e){
             e.printStackTrace();
         }
 
@@ -76,7 +77,7 @@ public class SpecialiteDAOImpl extends DAOImpl<Specialite> implements Specialite
                 specialite.setListFormations(listTemp);
                 idToSpecialite.put(id,specialite);
             }
-        }catch (SQLException e){
+        }catch (SQLException | ModeleException e){
             e.printStackTrace();
             return null;
         }

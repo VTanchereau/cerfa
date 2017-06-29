@@ -3,6 +3,7 @@ package modele.proxy;
 import dao.DAOFactory;
 import dao.DAONames;
 import dao.intf.DAO;
+import modele.ModeleException;
 import modele.impl.Specialite;
 import modele.intf.IFormation;
 import modele.intf.ISpecialite;
@@ -60,9 +61,14 @@ public class ProxySpecialite implements ISpecialite {
     }
 
     @Override
-    public void setCode(String code) {
+    public void setCode(String code) throws ModeleException {
         this.getInstance();
-        this.instance.setCode(code);
+        try{
+            this.instance.setCode(code);
+        }catch (ModeleException e){
+            throw e;
+        }
+
     }
 
     @Override

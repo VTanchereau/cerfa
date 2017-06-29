@@ -1,5 +1,6 @@
 package modele.impl;
 
+import modele.ModeleException;
 import modele.intf.IFormation;
 import modele.intf.ISpecialite;
 
@@ -15,16 +16,26 @@ public class Specialite implements ISpecialite {
     private String code;
     private List<IFormation> listFormations;
 
-    public Specialite(int id, String nom, String code) {
+    public Specialite(int id, String nom, String _code) throws ModeleException {
         this.id = id;
         this.nom = nom;
-        this.code = code;
+        try{
+            this.checkCode(_code);
+        }catch (ModeleException e){
+            throw e;
+        }
+        this.code = _code;
         this.listFormations = new ArrayList<>();
     }
 
-    public Specialite(String nom, String code) {
+    public Specialite(String nom, String _code) throws ModeleException {
         this.nom = nom;
-        this.code = code;
+        try{
+            this.checkCode(_code);
+        }catch (ModeleException e){
+            throw e;
+        }
+        this.code = _code;
         this.listFormations = new ArrayList<>();
     }
 
@@ -48,7 +59,12 @@ public class Specialite implements ISpecialite {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(String code) throws ModeleException {
+        try{
+            this.checkCode(code);
+        }catch (ModeleException e){
+            throw e;
+        }
         this.code = code;
     }
 
@@ -58,6 +74,20 @@ public class Specialite implements ISpecialite {
 
     public void setListFormations(List<IFormation> listFormations) {
         this.listFormations = listFormations;
+    }
+
+    private void checkCode(String codeToCheck) throws ModeleException {
+        if (codeToCheck == null){
+            throw new ModeleException("Le code n'est pas valide");
+        }
+        if (codeToCheck.length() != 3){
+            throw new ModeleException("Le code n'est pas valide");
+        }
+        try{
+            int temp = Integer.parseInt(codeToCheck);
+        }catch (Exception e){
+            throw new ModeleException("Le code n'est pas valide");
+        }
     }
 
     @Override
