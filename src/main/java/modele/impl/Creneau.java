@@ -1,11 +1,13 @@
 package modele.impl;
 
+import modele.ModeleException;
 import modele.impl.Formation;
 import modele.intf.ICreneau;
 import modele.intf.IFormateur;
 import modele.intf.IFormation;
 import modele.intf.IStagiaire;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,19 +26,23 @@ public class Creneau implements ICreneau{
     private List<IStagiaire> listStagiaires;
     private List<IFormateur> listFormateurs;
 
-    public Creneau(int id, LocalDateTime dateDebut, LocalDateTime dateFin, boolean interne, IFormation formation) {
+    public Creneau(int id, LocalDateTime _dateDebut, LocalDateTime _dateFin, boolean interne, IFormation formation) throws ModeleException {
         this.id = id;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+        this.checkDate(_dateDebut, _dateFin);
+        this.checkDuree(_dateDebut, _dateFin);
+        this.dateDebut = _dateDebut;
+        this.dateFin = _dateFin;
         this.interne = interne;
         this.formation = formation;
         this.listStagiaires = new ArrayList<>();
         this.listFormateurs = new ArrayList<>();
     }
 
-    public Creneau(LocalDateTime dateDebut, LocalDateTime dateFin, boolean interne, IFormation formation) {
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+    public Creneau(LocalDateTime _dateDebut, LocalDateTime _dateFin, boolean interne, IFormation formation) throws ModeleException {
+        this.checkDate(_dateDebut, _dateFin);
+        this.checkDuree(_dateDebut, _dateFin);
+        this.dateDebut = _dateDebut;
+        this.dateFin = _dateFin;
         this.interne = interne;
         this.formation = formation;
         this.listStagiaires = new ArrayList<>();
@@ -55,16 +61,20 @@ public class Creneau implements ICreneau{
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDateTime dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setDateDebut(LocalDateTime _dateDebut) throws ModeleException {
+        this.checkDate(_dateDebut, this.dateFin);
+        this.checkDuree(_dateDebut, this.dateFin);
+        this.dateDebut = _dateDebut;
     }
 
     public LocalDateTime getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDateTime dateFin) {
-        this.dateFin = dateFin;
+    public void setDateFin(LocalDateTime _dateFin) throws ModeleException {
+        this.checkDate(this.dateDebut, _dateFin);
+        this.checkDuree(this.dateDebut, _dateFin);
+        this.dateFin = _dateFin;
     }
 
     public boolean isInterne() {
@@ -97,6 +107,21 @@ public class Creneau implements ICreneau{
 
     public void setListFormateurs(List<IFormateur> listFormateurs) {
         this.listFormateurs = listFormateurs;
+    }
+
+    private void checkDate(LocalDateTime _dateDebut, LocalDateTime _dateFin) throws ModeleException {
+        if (_dateDebut == null || _dateFin == null){
+            throw new ModeleException("Les dates ne sont pas valides");
+        }
+        if (_dateDebut.isAfter(_dateFin) || _dateDebut.isEqual(_dateFin)){
+            throw new ModeleException("Les dates ne sont pas valides");
+        }
+    }
+
+    private void checkDuree(LocalDateTime _dateDebut, LocalDateTime _dateFin) throws ModeleException {
+        if (!_dateFin.isEqual(_dateDebut.plusHours(3).plusMinutes(30))){
+            throw new ModeleException("Le créneau n'as oas une durée de 3h30");
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package modele.intf;
 
+import modele.ModeleException;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,9 +12,9 @@ public interface ICreneau {
     int getId();
     void setId(int id);
     LocalDateTime getDateDebut();
-    void setDateDebut(LocalDateTime dateDebut);
+    void setDateDebut(LocalDateTime dateDebut) throws ModeleException;
     LocalDateTime getDateFin();
-    void setDateFin(LocalDateTime dateFin);
+    void setDateFin(LocalDateTime dateFin) throws ModeleException;
     boolean isInterne();
     void setInterne(boolean interne);
     IFormation getFormation();

@@ -1,6 +1,7 @@
 package dao.impl.mysql;
 
 import dao.intf.CreneauDAO;
+import modele.ModeleException;
 import modele.impl.Creneau;
 import modele.intf.IFormateur;
 import modele.intf.IFormation;
@@ -78,6 +79,8 @@ public class CreneauDAOImpl extends DAOImpl<Creneau> implements CreneauDAO {
             }
         }catch (SQLException e){
             e.printStackTrace();
+        } catch (ModeleException e) {
+            e.printStackTrace();
         }
 
         return creneau;
@@ -138,6 +141,8 @@ public class CreneauDAOImpl extends DAOImpl<Creneau> implements CreneauDAO {
         }catch (SQLException e){
             e.printStackTrace();
             return null;
+        } catch (ModeleException e) {
+            e.printStackTrace();
         }
 
         return new ArrayList<>(idToCreneau.values());

@@ -1,6 +1,7 @@
 package dao.impl.mysql;
 
 import dao.intf.FinancementDAO;
+import modele.ModeleException;
 import modele.impl.Financement;
 import modele.impl.FinancementStagiaire;
 import modele.intf.IFinancementStagiaire;
@@ -51,10 +52,15 @@ public class FinancementDAOImpl extends DAOImpl<Financement> implements Financem
 
                 }
                 FinancementStagiaire fs;
-                if (dateFin == null) {
-                    fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut);
-                }else {
-                    fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut, dateFin);
+                try {
+                    if (dateFin == null) {
+                        fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut);
+                    } else {
+                        fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut, dateFin);
+                    }
+                }catch (ModeleException e){
+                    e.printStackTrace();
+                    return null;
                 }
                 List<IFinancementStagiaire> listTemp = financement.getListFinancementsStagiaires();
                 listTemp.add(fs);
@@ -92,10 +98,15 @@ public class FinancementDAOImpl extends DAOImpl<Financement> implements Financem
 
                 }
                 FinancementStagiaire fs;
-                if (dateFin == null) {
-                    fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut);
-                } else {
-                    fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut, dateFin);
+                try {
+                    if (dateFin == null) {
+                        fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut);
+                    } else {
+                        fs = new FinancementStagiaire(new ProxyStagiaire(idStagiaire), financement, dateDebut, dateFin);
+                    }
+                }catch (ModeleException e){
+                    e.printStackTrace();
+                    return null;
                 }
                 List<IFinancementStagiaire> listTemp = financement.getListFinancementsStagiaires();
                 listTemp.add(fs);

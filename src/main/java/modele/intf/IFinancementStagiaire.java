@@ -1,5 +1,7 @@
 package modele.intf;
 
+import modele.ModeleException;
+
 import java.time.LocalDate;
 
 /**
@@ -12,7 +14,7 @@ public interface IFinancementStagiaire {
     IFinancement getFinancement();
     void setFinancement(IFinancement financement);
     LocalDate getDateDebut();
-    void setDateDebut(LocalDate dateDebut);
+    void setDateDebut(LocalDate dateDebut) throws ModeleException;
     LocalDate getDateFin();
-    void setDateFin(LocalDate dateFin);
+    void setDateFin(LocalDate dateFin) throws ModeleException;
 }

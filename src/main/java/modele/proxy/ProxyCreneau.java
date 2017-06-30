@@ -3,6 +3,7 @@ package modele.proxy;
 import dao.DAOFactory;
 import dao.DAONames;
 import dao.intf.DAO;
+import modele.ModeleException;
 import modele.impl.Creneau;
 import modele.intf.ICreneau;
 import modele.intf.IFormateur;
@@ -52,7 +53,11 @@ public class ProxyCreneau implements ICreneau {
     @Override
     public void setDateDebut(LocalDateTime dateDebut) {
         this.getInstance();
-        this.instance.setDateDebut(dateDebut);
+        try {
+            this.instance.setDateDebut(dateDebut);
+        } catch (ModeleException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -64,7 +69,11 @@ public class ProxyCreneau implements ICreneau {
     @Override
     public void setDateFin(LocalDateTime dateFin) {
         this.getInstance();
-        this.instance.setDateFin(dateFin);
+        try {
+            this.instance.setDateFin(dateFin);
+        } catch (ModeleException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
