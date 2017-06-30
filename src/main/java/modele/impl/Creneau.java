@@ -124,6 +124,32 @@ public class Creneau implements ICreneau{
         }
     }
 
+    private void checkListStagiaires() throws ModeleException{
+        // parcourir la liste des stagiaires
+
+        for(IStagiaire stagiaire1 : this.getListStagiaires()){
+            for(IStagiaire stagiaire2 : this.getListStagiaires()){
+                if(stagiaire1.equals(stagiaire2)){
+                    throw new ModeleException("Le stagiaire ne peut pas être présent deux fois dans un crénzau.");
+                }
+            }
+        }
+
+        for(IStagiaire stagiaire : this.getListStagiaires()){
+            for(ICreneau creneauTemp : stagiaire.getListCreneaux()){
+                if(!this.equals(creneauTemp) && this.chevauche(creneauTemp)){
+                    throw new ModeleException("Le créneau n'as oas une durée de 3h30");
+                }
+            }
+        }
+
+        // regarder si les creneaux chevauchent
+    }
+
+    public boolean chevauche(ICreneau creneauTemp){
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Creneau{" +
